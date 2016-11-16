@@ -72,25 +72,25 @@ namespace HoloToolkit.Unity
         private void Start()
         {
 
-#if !UNITY_EDITOR
+            //#if !UNITY_EDITOR
             StartObserver();
-#endif
+            //#endif
 
-#if UNITY_EDITOR
-            blueLines = Resources.Load<Material>("BlueLinesOnWalls");
-            objectSurfaceObserver = GetComponent<ObjectSurfaceObserver>();
+            //#if UNITY_EDITOR
+            //            blueLines = Resources.Load<Material>("BlueLinesOnWalls");
+            //            objectSurfaceObserver = GetComponent<ObjectSurfaceObserver>();
 
-            if (objectSurfaceObserver != null)
-            {
-                // In the Unity editor, try loading saved meshes from a model.
-                objectSurfaceObserver.Load(objectSurfaceObserver.roomModel);
+            //            if (objectSurfaceObserver != null)
+            //            {
+            //                // In the Unity editor, try loading saved meshes from a model.
+            //                objectSurfaceObserver.Load(objectSurfaceObserver.roomModel);
 
-                if (objectSurfaceObserver.GetMeshFilters().Count > 0)
-                {
-                    SetSpatialMappingSource(objectSurfaceObserver);
-                }
-            }
-#endif
+            //                if (objectSurfaceObserver.GetMeshFilters().Count > 0)
+            //                {
+            //                    SetSpatialMappingSource(objectSurfaceObserver);
+            //                }
+            //            }
+            //#endif
         }
 
         /// <summary>
