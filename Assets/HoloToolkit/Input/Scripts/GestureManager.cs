@@ -1,7 +1,5 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See LICENSE in the project root for license information.
-
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 using UnityEngine.VR.WSA.Input;
 
 namespace HoloToolkit.Unity
@@ -12,7 +10,7 @@ namespace HoloToolkit.Unity
     /// GestureManager then sends a message to that game object.
     /// </summary>
     [RequireComponent(typeof(GazeManager))]
-    public partial class GestureManager : Singleton<GestureManager>
+    public class GestureManager : Singleton<GestureManager>
     {
         /// <summary>
         /// To select even when a hologram is not being gazed at,
@@ -22,14 +20,6 @@ namespace HoloToolkit.Unity
         public GameObject OverrideFocusedObject
         {
             get; set;
-        }
-
-        /// <summary>
-        /// Gets the currently focused object, or null if none.
-        /// </summary>
-        public GameObject FocusedObject
-        {
-            get { return focusedObject; }
         }
 
         private GestureRecognizer gestureRecognizer;
@@ -58,8 +48,8 @@ namespace HoloToolkit.Unity
         void LateUpdate()
         {
             GameObject oldFocusedObject = focusedObject;
-
-            if (GazeManager.Instance.Hit &&
+            
+            if (GazeManager.Instance.Hit && 
                 OverrideFocusedObject == null &&
                 GazeManager.Instance.HitInfo.collider != null)
             {

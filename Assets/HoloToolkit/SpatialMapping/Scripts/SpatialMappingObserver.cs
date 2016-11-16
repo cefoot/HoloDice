@@ -1,7 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See LICENSE in the project root for license information.
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VR.WSA;
 
@@ -31,15 +28,12 @@ namespace HoloToolkit.Unity
     {
         [Tooltip("The number of triangles to calculate per cubic meter.")]
         public float TrianglesPerCubicMeter = 500f;
-
+        
         [Tooltip("The extents of the observation volume.")]
         public Vector3 Extents = Vector3.one * 10.0f;
 
         [Tooltip("How long to wait (in sec) between Spatial Mapping updates.")]
         public float TimeBetweenUpdates = 3.5f;
-
-        [Tooltip("Recalculates normals whenever a mesh is updated.")]
-        public bool RecalculateNormals = false;
 
         /// <summary>
         /// Our Surface Observer object for generating/updating Spatial Mapping data.
@@ -87,7 +81,7 @@ namespace HoloToolkit.Unity
         /// </summary>
         private void Start()
         {
-            observer.SetVolumeAsAxisAlignedBox(Vector3.zero, Extents);
+            observer.SetVolumeAsAxisAlignedBox(Vector3.zero, Extents);            
         }
 
         /// <summary>
@@ -162,16 +156,7 @@ namespace HoloToolkit.Unity
                 renderer.sharedMaterial = SpatialMappingManager.Instance.SurfaceMaterial;
                 renderer.enabled = SpatialMappingManager.Instance.DrawVisualMeshes;
 
-                if (RecalculateNormals)
-                {
-                    MeshFilter filter = surface.GetComponent<MeshFilter>();
-                    if (filter != null && filter.sharedMesh != null)
-                    {
-                        filter.sharedMesh.RecalculateNormals();
-                    }
-                }
-
-                if (SpatialMappingManager.Instance.CastShadows == false)
+                if(SpatialMappingManager.Instance.CastShadows == false)
                 {
                     renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
                 }
@@ -199,7 +184,7 @@ namespace HoloToolkit.Unity
 
             switch (changeType)
             {
-                // Adding and updating are nearly identical.  The only difference is if a new GameObject to contain
+                // Adding and updating are nearly identical.  The only difference is if a new GameObject to contain 
                 // the surface needs to be created.
                 case SurfaceChange.Added:
                 case SurfaceChange.Updated:
@@ -226,8 +211,8 @@ namespace HoloToolkit.Unity
                     // Always process surface removal events.
                     if (surfaces.TryGetValue(id.handle, out surface))
                     {
-                        RemoveSurfaceObject(surface);
                         surfaces.Remove(id.handle);
+                        Destroy(surface);
                     }
                     break;
             }
@@ -258,7 +243,7 @@ namespace HoloToolkit.Unity
             // Stop the observer.
             StopObserving();
 
-            observer.Dispose();
+            observer.Dispose(); 
             observer = null;
 
             // Clear our surface mesh collection.
