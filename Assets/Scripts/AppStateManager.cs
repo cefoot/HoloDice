@@ -37,7 +37,7 @@ public class AppStateManager : Singleton<AppStateManager>
                 if (ImportExportAnchorManager.Instance.AnchorEstablished)
                 {
                     CurrentAppState = AppState.WaitingForStageTransform;
-                    GestureManager.Instance.OverrideFocusedObject = HologramPlacement.Instance.gameObject;
+                    //GestureManager.Instance.OverrideFocusedObject = HologramPlacement.Instance.gameObject;
                 }
                 break;
             case AppState.WaitingForStageTransform:
